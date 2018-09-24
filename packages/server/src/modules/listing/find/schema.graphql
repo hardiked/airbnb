@@ -1,0 +1,18 @@
+type Listing{
+	id: ID!
+	name: String!
+	category: String!
+	description: String!
+	price: Int!
+	beds: Int!
+	pictureUrl: String!
+	guests: Int!
+	latitude: Float!
+	longitude: Float!
+	amenities: [String!]!
+	owner: User!
+}
+
+type Query{
+	findListings: [Listing!]!
+}

@@ -1,0 +1,16 @@
+.idea/
+.vscode/
+node_modules/
+build/
+temp/
+*.log
+dump.rdb
+.env
+dist
+./packages/common/node_modules/
+./packages/common/dist/
+./packages/controller/node_modules/
+./packages/controller/dist/
+./packages/server/node_modules/
+./packages/server/dist/
+./packages/web1/node_modules/

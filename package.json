@@ -1,0 +1,15 @@
+{
+	"private": true,
+	"workspaces": {
+		"packages": ["packages/*"],
+		"nohoist": [
+			"**/rimraf",
+			"**/rimraf/**"
+		]
+	},
+	"name": "airbnb",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "hardik modi <hmodi97122@yahoo.in>",
+	"license": "MIT"
+}
