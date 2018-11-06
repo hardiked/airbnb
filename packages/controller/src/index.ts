@@ -4,6 +4,7 @@ export * from './modules/ForgotPasswordController';
 export * from './modules/ChangePasswordController';
 export * from './modules/FindListings';
 export * from './modules/CreateListing';
+export * from './modules/UpdateListing';
 export * from './modules/LogoutController';
 export * from './modules/ViewListing';
 export * from './modules/ViewMessages';

@@ -4,26 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: ViewMessagesQuery
+// GraphQL mutation operation: UpdateListingMutation
 // ====================================================
 
-export interface ViewMessagesQuery_messages_user {
-  id: string;
-  email: string;
+export interface UpdateListingMutation {
+  updateListing: boolean;
 }
 
-export interface ViewMessagesQuery_messages {
-  text: string;
-  user: ViewMessagesQuery_messages_user;
+export interface UpdateListingMutationVariables {
   listingId: string;
-}
-
-export interface ViewMessagesQuery {
-  messages: ViewMessagesQuery_messages[];
-}
-
-export interface ViewMessagesQueryVariables {
-  listingId: string;
+  input: UpdateListingInput;
 }
 
 /* tslint:disable */

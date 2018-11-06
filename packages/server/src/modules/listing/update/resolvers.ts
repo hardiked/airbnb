@@ -1,5 +1,6 @@
 import * as shortid from 'shortid';
 import {createWriteStream} from 'fs';
+import { getConnection } from "typeorm";
 
 import { ResolverMap } from "../../../types/graphql-utils";
 import { Listing } from "../../../entity/Listing";
@@ -26,18 +27,34 @@ const processUpload = async (upload:any) => {
 
 export const resolvers: ResolverMap = {
 	Mutation:{
-		createListing: async (_, {input: {picture, ...data}}, {session,redis}) => {
+		updateListing: async (_, {listingId,input: {picture, ...data}},{redis}) => {
 			// console.log(session.userId);
 			// if(!session.userId){
 			// 	throw new Error("Not authenticated!");
 			// }
-			const pictureUrl=picture ? await processUpload(picture) : null;
-			const listing=await Listing.create({
-				...data,
-				pictureUrl,
-				userId: session.userId
-			}).save();
-			redis.lpush("ListingCache",JSON.stringify(listing));
+			// const pictureUrl=picture ? await processUpload(picture) : null;
+			if(picture){
+				data.pictureUrl=await processUpload(picture);
+			}
+			// await Listing.update({
+			// 	id: listingId
+			// },{
+			// 	...data
+			// });
+
+
+			const {raw:[newListing]}=await getConnection()
+	        .createQueryBuilder()
+	        .update(Listing)
+	        .set(data)
+	        .where("id = :id", { id: listingId })
+	        .returning("*")
+	        .execute();
+	        const listings = await redis.lrange("ListingCache", 0, -1);
+	     	const idx = listings.findIndex(
+	        	(x: string) => JSON.parse(x).id === listingId
+	      	);
+	        await redis.lset("ListingCache",idx,JSON.stringify(newListing));
 			return true;
 		}
 	}

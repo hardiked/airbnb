@@ -19,6 +19,7 @@ import { genSchema } from "./utils/genSchema";
 import { redisSessionPrefix } from "./constants";
 import { createTestConn } from "./testUtils/createTestConn";
 import {middleware} from './middleware';
+import { Listing } from './entity/Listing';
 import {userLoader} from './loaders/UserLoader';
 
 const SESSION_SECRET = "ajslkjalksjdfkl";
@@ -94,6 +95,13 @@ export const startServer = async () => {
   } else {
     await createTypeormConn();
   }
+
+await redis.del("ListingCache")
+const listings=await Listing.find();
+const listingStrings=listings.map(x=>JSON.stringify(x));
+await redis.lpush("ListingCache",...listingStrings);
+// console.log(await redis.lrange("ListingCache",0,-1));
+
   const app = await server.start({
     cors,
     port: process.env.NODE_ENV === "test" ? 0 : 4000
