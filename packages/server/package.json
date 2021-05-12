@@ -56,7 +56,7 @@
     "ioredis": "^3.2.2",
     "merge-graphql-schemas": "^1.5.1",
     "node-fetch": "^2.1.2",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^6.4.16",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "pg": "^7.4.1",
     "rate-limit-redis": "^1.4.0",
